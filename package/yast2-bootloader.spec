@@ -32,6 +32,19 @@ BuildRequires:  rubygem(rspec)
 BuildRequires:  rubygem(yast-rake)
 BuildRequires:  yast2-storage
 BuildRequires:  yast2-ruby-bindings >= 1.0.0
+
+# Install extra packages for additional tests run at the Jenkins CI builds.
+# run manually: osc build --define "run_ci_tests 1"
+# from sources: rake osc:build['--define "run_ci_tests 1"']
+
+%if %run_ci_tests
+# TODO FIXME: share this BuildRequires better (create a new package?)
+BuildRequires:  rubygem(rubocop)
+BuildRequires:  rubygem(coveralls)
+BuildRequires:  rubygem(simplecov)
+BuildRequires:  rubygem(gettext)
+%endif
+
 PreReq:         /bin/sed %fillup_prereq
 # Base classes for inst clients
 Requires:	yast2 >= 3.1.112
@@ -66,7 +79,14 @@ provided by yast2-bootloader package.
 %setup -n %{name}-%{version}
 
 %check
-rake test:unit
+%if %run_ci_tests
+  # TODO FIXME: share this better (replace by something like 'rake check:ci'?)
+  rubocop
+  rake check:pot
+  COVERAGE=1 rake test:unit
+%else
+  rake test:unit
+%endif
 
 %build
 yardoc
