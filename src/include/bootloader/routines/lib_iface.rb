@@ -105,9 +105,9 @@ module Yast
 
       nil
     ensure
-      mp_data.unlink
-      part_data.unlink
-      md_data.unlink
+      mp_data.unlink if mp_data
+      part_data.unlink if part_data
+      md_data.unlink if md_data
     end
 
     # Initialize the bootloader library
@@ -161,7 +161,7 @@ module Yast
 
       true
     ensure
-      sections_data.unlink
+      sections_data.unlink if sections_data
     end
 
     # Get boot loader sections
@@ -179,7 +179,7 @@ module Yast
 
       sects
     ensure
-      sections_data.unlink
+      sections_data.unlink if sections_data
     end
 
     # Set global bootloader options
@@ -195,7 +195,7 @@ module Yast
 
       true
     ensure
-      globals_data.unlink
+      globals_data.unlink if globals_data
     end
 
     # Get global bootloader options
@@ -214,7 +214,7 @@ module Yast
       Builtins.y2milestone("Read global settings: %1", glob)
       glob
     ensure
-      globals_data.unlink
+      globals_data.unlink if globals_data
     end
 
     # Set the device mapping (Linux <-> Firmware)
@@ -228,7 +228,7 @@ module Yast
 
       true
     ensure
-      arg_data.unlink
+      arg_data.unlink if arg_data
     end
 
     # Set the mapping (real device <-> multipath)
@@ -269,7 +269,7 @@ module Yast
       Builtins.y2milestone("Read device mapping: %1", devmap)
       devmap
     ensure
-      res_data.unlink
+      res_data.unlink if res_data
     end
 
     # Read the files from the system to internal cache of the library
@@ -284,7 +284,7 @@ module Yast
 
       true
     ensure
-      param_data.unlink
+      param_data.unlink if param_data
     end
 
     # Flush the internal cache of the library to the disk
@@ -305,7 +305,7 @@ module Yast
       Builtins.y2milestone("Updating bootloader configuration")
       run_pbl_yaml "UpdateBootloader(#{arg_data.path})"
     ensure
-      arg_data.unlink
+      arg_data.unlink if arg_data
     end
 
     def SetSecureBoot(enable)
@@ -316,7 +316,7 @@ module Yast
 
       true
     ensure
-      arg_data.unlink
+      arg_data.unlink if arg_data
     end
 
 
@@ -339,8 +339,8 @@ module Yast
 
       append_data.data
     ensure
-      args_data.unlink
-      append_data.unlink
+      args_data.unlink if args_data
+      append_data.unlink if append_data
     end
 
     # Initialize the boot loader (eg. modify firmware, depending on architecture)
@@ -372,7 +372,7 @@ module Yast
 
       ret
     ensure
-      ret_data.unlink
+      ret_data.unlink if ret_data
     end
 
     # Set the contents of all files to library cache
@@ -386,7 +386,7 @@ module Yast
 
       true
     ensure
-      files_data.unlink
+      files_data.unlink if files_data
     end
 
     # Analyse content of MBR
@@ -404,8 +404,8 @@ module Yast
       Builtins.y2milestone("Device: %1 includes in MBR: %2", device, ret)
       ret
     ensure
-      device_data.unlink
-      ret_data.unlink
+      device_data.unlink if device_data
+      ret_data.unlink if ret_data
     end
   end
 end
