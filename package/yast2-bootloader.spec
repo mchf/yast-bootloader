@@ -38,11 +38,7 @@ BuildRequires:  yast2-ruby-bindings >= 1.0.0
 # from sources: rake osc:build['--define "run_ci_tests 1"']
 
 %if %run_ci_tests
-# TODO FIXME: share this BuildRequires better (create a new package?)
-BuildRequires:  rubygem(rubocop)
-BuildRequires:  rubygem(coveralls)
-BuildRequires:  rubygem(simplecov)
-BuildRequires:  rubygem(gettext)
+BuildRequires:  rubygem(yast-rake-ci)
 %endif
 
 PreReq:         /bin/sed %fillup_prereq
@@ -80,10 +76,7 @@ provided by yast2-bootloader package.
 
 %check
 %if %run_ci_tests
-  # TODO FIXME: share this better (replace by something like 'rake check:ci'?)
-  rubocop
-  rake check:pot
-  COVERAGE=1 rake test:unit
+  rake check:ci
 %else
   rake test:unit
 %endif
