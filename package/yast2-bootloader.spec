@@ -76,7 +76,7 @@ provided by yast2-bootloader package.
 
 %check
 %if %run_ci_tests
-  rake check:ci
+  LC_ALL=en_US.UTF-8 rake -t -v check:ci
 %else
   rake test:unit
 %endif
