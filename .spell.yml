@@ -1,0 +1,53 @@
+# This is the repository specific custom dictionary
+#
+# Write the words in alphabetical order, one word per line.
+# If an unknown word is generic put it into the global dictionary
+# in yast-rake in lib/tasks/spell.yml file.
+
+---
+ignore:
+  - "doc/autodocs/**/*"
+  # FIXME: fix and remove this
+  - "doc/bootloader.html"
+  - "coverage/**/*"
+dictionary:
+  # HTML attributes, unfortunately checked as well...
+  - AEN
+  - computeroutput
+  - HREF
+  - mediaobject
+  - SRC
+  # some common stuff...
+  - AMD
+  - bootloader
+  - Bootloader
+  - bootloaders
+  - conf
+  - dev
+  - DM
+  - efi
+  - fs
+  - gfxmenu
+  - GPT
+  - hd
+  - hda
+  - ieee
+  - initrd
+  - Initrd
+  - IP
+  - le
+  - LVM
+  - MBR
+  - memtest
+  - mkinitrd
+  - multipath
+  - NFSv
+  - png
+  - popup
+  - ppc
+  - PReP
+  - sbin
+  - sysconfig
+  - UEFI
+  - UserInput
+  - zipl
